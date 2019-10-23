@@ -9,6 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Track"></activity>
+        <activity android:name=".ReviewTrack" />
+        <activity android:name=".ReviewReceived" />
+        <activity android:name=".Received" />
+        <activity android:name=".Review" />
+        <activity android:name=".Waiting" />
+        <activity android:name=".Option" />
+        <activity android:name=".Login" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -18,57 +18,25 @@
             android:orientation="vertical"
             android:background="@drawable/bg">
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TableRow>
-
-                    <ImageView
-                        android:id="@+id/idImg1"
-                        android:layout_width="180dp"
-                        android:layout_height="180dp"
-                        android:scaleType="fitXY"
-                        android:background="@drawable/shapeborderimage"
-                        android:src="@drawable/photot_icon" />
-                    <ImageView
-                        android:id="@+id/idImg2"
-                        android:layout_width="180dp"
-                        android:layout_height="180dp"
-                        android:background="@drawable/shapeborderimage"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/photot_icon" />
-                </TableRow>
-                <TableRow>
-                    <ImageView
-                        android:id="@+id/idImg3"
-                        android:layout_width="180dp"
-                        android:layout_height="180dp"
-                        android:background="@drawable/shapeborderimage"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/photot_icon" />
-                    <ImageView
-                        android:id="@+id/idImg4"
-                        android:background="@drawable/shapeborderimage"
-                        android:layout_width="180dp"
-                        android:layout_height="180dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/photot_icon" />
-                </TableRow>
-            </TableLayout>
-            <TextView
+            <ImageView
+                android:id="@+id/idImg1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="@drawable/shapeborderimage"
+                android:scaleType="fitXY"
+                android:src="@drawable/photot_icon" />
+            <EditText
                 android:id="@+id/txtRegion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/shapeinput"
                 android:drawablePadding="10dp"
                 android:padding="15dp"
-                android:text="Region Left Back"
-                android:textColor="@color/white"
+                android:textColor="#3D3D37"
                 android:textColorHighlight="@color/white"
-                android:textColorHint="#7C7878"
-                android:textSize="20dp"/>
+                android:textColorHint="#7C7878" />
 
             <ImageView
                 android:id="@+id/imageView"
@@ -105,8 +73,8 @@
 
                     <CheckBox
                         android:id="@+id/cbQuestion1"
-                        android:layout_width="22dp"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
                         android:layout_marginLeft="0dp"
                         android:layout_marginTop="0dp"
                         android:layout_marginRight="10dp"
@@ -566,6 +534,7 @@
                 android:textSize="30dp"/>
 
             <EditText
+                android:id="@+id/edrFeedBack"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top|left"

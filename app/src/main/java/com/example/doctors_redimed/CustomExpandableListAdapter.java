@@ -12,11 +12,11 @@ import android.widget.TextView;
 
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
-    private List<String> expandableListTitle;
-    private HashMap<String, List<String>> expandableListDetail;
+    private List<ChildRequest> expandableListTitle;
+    private HashMap<ChildRequest, List<ChildRequest>> expandableListDetail;
 
-    public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
-                                       HashMap<String, List<String>> expandableListDetail) {
+    public CustomExpandableListAdapter(Context context, List<ChildRequest> expandableListTitle,
+                                       HashMap<ChildRequest, List<ChildRequest>> expandableListDetail) {
         this.context = context;
         this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;
@@ -36,15 +36,20 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int listPosition, final int expandedListPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        final String expandedListText = (String) getChild(listPosition, expandedListPosition);
+        final ChildRequest expandedListText = (ChildRequest) getChild(listPosition, expandedListPosition);
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.list_item, null);
         }
-        TextView expandedListTextView = (TextView) convertView
-                .findViewById(R.id.expandedListItem);
-        expandedListTextView.setText(expandedListText);
+        TextView expandedListTextView = (TextView) convertView.findViewById(R.id.expandedListItem);
+        TextView txtReceive = (TextView) convertView.findViewById(R.id.txtReceive);
+        TextView txtSend = (TextView) convertView.findViewById(R.id.txtSend);
+        TextView txtBack = (TextView) convertView.findViewById(R.id.txtBack);
+        expandedListTextView.setText(expandedListText.Name1);
+        txtReceive.setText(expandedListText.Name2);
+        txtSend.setText(expandedListText.Name3);
+        txtBack.setText(expandedListText.Name4);
         return convertView;
     }
 
@@ -72,16 +77,21 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int listPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
-        String listTitle = (String) getGroup(listPosition);
+        ChildRequest listTitle = (ChildRequest) getGroup(listPosition);
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.list_group, null);
         }
-        TextView listTitleTextView = (TextView) convertView
-                .findViewById(R.id.listTitle);
+        TextView listTitleTextView = (TextView) convertView.findViewById(R.id.listTitle);
+        TextView txtSdt = (TextView) convertView.findViewById(R.id.txtSdt);
+        TextView txtGender = (TextView) convertView.findViewById(R.id.txtGender);
+        TextView txtYear = (TextView) convertView.findViewById(R.id.txtYear);
         listTitleTextView.setTypeface(null, Typeface.BOLD);
-        listTitleTextView.setText(listTitle);
+        listTitleTextView.setText(listTitle.Name1);
+        txtSdt.setText(listTitle.Name2);
+        txtGender.setText(listTitle.Name4);
+        txtYear.setText(listTitle.Name3);
         return convertView;
     }
 

@@ -55,7 +55,8 @@ public class Login extends AppCompatActivity {
                             {
                                 if(txtPass.getText().toString().equals(passWord))
                                 {
-                                    Intent it  =new Intent(Login.this,Option.class);
+//                                    Intent it  =new Intent(Login.this,Option.class);
+                                    Intent it  =new Intent(Login.this,MainTab.class);
                                     //create table
                                     databasel.QueryData("CREATE TABLE IF NOT EXISTS TabelUser(Id INTEGER PRIMARY KEY, Email VARCHAR(200))");
                                     Cursor itemTests = databasel.GetData("SELECT * FROM TabelUser");

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Doctors-Redimed</string>
+    <string name="title_activity_main_tab">MainTab</string>
+    <string name="tab_text_1">Waiting</string>
+    <string name="tab_text_2">Received</string>
+    <string name="tab_text_3">Done</string>
 </resources>

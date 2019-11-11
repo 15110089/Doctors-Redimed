@@ -17,8 +17,8 @@ import java.util.List;
 public class Example extends AppCompatActivity {
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
-    List<String> expandableListTitle;
-    HashMap<String, List<String>> expandableListDetail;
+    List<ChildRequest> expandableListTitle;
+    HashMap<ChildRequest, List<ChildRequest>> expandableListDetail;
     int lastExpandedPosition = 0;
     Button btReceive;
     int nodeIsOpening;
@@ -29,8 +29,7 @@ public class Example extends AppCompatActivity {
         btReceive = (Button) findViewById(R.id.btReceive);
 
         expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
-        expandableListDetail = ExpandableListDataPump.getData();
-        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
+        expandableListTitle = new ArrayList<ChildRequest>(expandableListDetail.keySet());
         expandableListAdapter = new CustomExpandableListAdapter(this, expandableListTitle, expandableListDetail);
         expandableListView.setAdapter(expandableListAdapter);
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
@@ -73,7 +72,7 @@ public class Example extends AppCompatActivity {
         btReceive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Log.i(">1<", expandableListTitle.get(nodeIsOpening));
+//                    Log.i(">1<", expandableListTitle.get(nodeIsOpening));
             }
         });
 

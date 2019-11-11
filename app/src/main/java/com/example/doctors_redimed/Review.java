@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,11 +21,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class Review extends AppCompatActivity {
 
-    Button btReceive;
     Button btCancel;
     ImageView Img1;
     EditText txtQuestion1;
@@ -50,7 +61,6 @@ public class Review extends AppCompatActivity {
     int received=0;
     String bUser;
     String bKey;
-    String bnameNote;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,10 +70,8 @@ public class Review extends AppCompatActivity {
         {
             bKey = bd.getString("KEY");
             bUser = bd.getString("USER");
-            bnameNote = bd.getString("NAMENOTE");
         }
         //ánh xạ
-        btReceive = (Button) findViewById(R.id.btReceive);
         btCancel = (Button) findViewById(R.id.btCancel);
         Img1 = (ImageView) findViewById(R.id.idImg1);
         txtRegion = (EditText) findViewById(R.id.txtRegion);
@@ -88,46 +96,12 @@ public class Review extends AppCompatActivity {
             user = itemTest.getString(1);
         }
         //code
-        btReceive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                received = 1;
-////              btlesson01.setBackgroundResource(R.drawable.shapeoptionclick);
-//                Intent it  =new Intent(Review.this,Waiting.class);
-//                it.putExtra("RECEIVED",received);
-//                startActivity(it);
-                String[] keys = user.split("@");
-                String key = keys[0];
-                myRef.child("Doctor").child(key).child("Request").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
-                        long keyRequest =  dataSnapshot.getChildrenCount();
-                        keyRequest = keyRequest +  1;
-                        strKeyRequest = keyRequest+"";
-                        myRef.child("NewRequest").child(bnameNote).removeValue();
-                        NewRequest nrq = new NewRequest();
-                        nrq.Key = bKey;
-                        nrq.User = bUser;
-                        String[] keys = user.split("@");
-                        String key = keys[0];
-                        myRef.child("Doctor").child(key).child("Request").child(strKeyRequest).setValue(nrq);
-                        Intent it  =new Intent(Review.this,Waiting.class);
-                        startActivity(it);
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                    }
-                });
 
-
-
-            }
-        });
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                btlesson01.setBackgroundResource(R.drawable.shapeoptionclick);
-                Intent it  =new Intent(Review.this,Waiting.class);
+                Intent it  =new Intent(Review.this,MainTab.class);
                 startActivity(it);
             }
         });
@@ -164,10 +138,14 @@ public class Review extends AppCompatActivity {
                 txtQuestion4.setText(rq.Question4);
                 txtRegion.setText(rq.Region);
                 Picasso.get().load(rq.LinkImage1).into(Img1);
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+
+
+
     }
 }

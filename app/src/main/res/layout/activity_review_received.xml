@@ -519,6 +519,7 @@
                 </LinearLayout>
             </LinearLayout>
             <TextView
+                android:id="@+id/txtMlFeelBack"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -527,7 +528,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingBottom="15dp"
-                android:text="Feedback of Machine Learning: Skin cancer"
+                android:text="Feedback of Machine Learning: Waiting..."
                 android:textColor="@color/white"
                 android:textColorHighlight="@color/white"
                 android:textColorHint="#7C7878"

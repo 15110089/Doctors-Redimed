@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:653087328387:android:4d2ee8d3a1e3e5bd8cf3b6",
         "android_client_info": {
-          "package_name": "com.example.doctors_redimed"
+          "package_name": "com.app.doctors_redimed"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "653087328387-7rocoqqn43iknjln4s7266s09jupsohs.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.doctors_redimed",
+            "package_name": "com.app.doctors_redimed",
             "certificate_hash": "7631847e0d142c47adf6a29dba7e6046cef37bdf"
           }
         },
@@ -47,7 +47,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:653087328387:android:d4c59b8885385d388cf3b6",
         "android_client_info": {
-          "package_name": "com.example.users_redimed"
+          "package_name": "com.app.users_redimed"
         }
       },
       "oauth_client": [
@@ -55,7 +55,7 @@
           "client_id": "653087328387-8qj70q6hong307n9qgbb3t2gob33ev8t.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.users_redimed",
+            "package_name": "com.app.users_redimed",
             "certificate_hash": "7631847e0d142c47adf6a29dba7e6046cef37bdf"
           }
         },

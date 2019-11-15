@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.doctors_redimed">
+    package="com.app.doctors_redimed">
 
     <application
         android:allowBackup="true"
@@ -10,19 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainTab"
+            android:name="com.app.doctors_redimed.MainTab"
             android:label="@string/title_activity_main_tab"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".Example" />
-        <activity android:name=".Track" />
-        <activity android:name=".ReviewTrack" />
-        <activity android:name=".ReviewReceived" />
-        <activity android:name=".Received" />
-        <activity android:name=".Review" />
-        <activity android:name=".Waiting" />
-        <activity android:name=".Option" />
-        <activity android:name=".Login" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.app.doctors_redimed.ReviewTrack" />
+        <activity android:name="com.app.doctors_redimed.ReviewReceived" />
+        <activity android:name="com.app.doctors_redimed.Review" />
+        <activity android:name="com.app.doctors_redimed.Login" />
+        <activity android:name="com.app.doctors_redimed.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

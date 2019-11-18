@@ -4,11 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
@@ -92,6 +96,17 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         txtSdt.setText(listTitle.Name2);
         txtGender.setText(listTitle.Name4);
         txtYear.setText(listTitle.Name3);
+
+        LinearLayout idBackGround = (LinearLayout) convertView.findViewById(R.id.idBackGround);
+
+
+        if(isExpanded == true){
+            idBackGround.setBackgroundResource(R.drawable.shapebutton);
+        }
+        else{
+            idBackGround.setBackgroundResource(R.drawable.shapebuttonblur);
+        }
+
         return convertView;
     }
 

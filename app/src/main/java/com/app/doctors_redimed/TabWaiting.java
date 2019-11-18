@@ -107,6 +107,10 @@ public class TabWaiting extends Fragment {
                 btReceive.setVisibility(View.VISIBLE);
                 nodeIsOpening = groupPosition;
 
+                Log.i(">1<",String.valueOf(nodeIsOpening));
+
+
+
             }
         });
         expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
@@ -160,6 +164,9 @@ public class TabWaiting extends Fragment {
 
             }
         });
+
+
+
 
 
 

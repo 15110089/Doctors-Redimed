@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,7 +45,6 @@ public class TabWaiting extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.layout_tab_waiting, container, false);
-
         btReceive = (Button) view.findViewById(R.id.btReceive);
         expandableListView = (ExpandableListView) view.findViewById(R.id.expandableListView);
         databasel = new Database(getContext(),"redimed.sqlite",null,1);
@@ -53,49 +53,42 @@ public class TabWaiting extends Fragment {
             user = itemTest.getString(1);
         }
         //
-
         myRef.child("NewRequest").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
-                expandableListDetail.clear();
-                for (DataSnapshot node: dataSnapshot.getChildren() ) {
-                    ChildRequest nodeParent = new ChildRequest();
+                    expandableListDetail.clear();
                     expandableListTitle = new ArrayList<ChildRequest>();
-                    nodeParent.Name1 = node.child("Profile").child("Name").getValue(String.class);
-                    nodeParent.Name2 = node.child("Profile").child("Phone").getValue(String.class);
-                    nodeParent.Name3 = node.child("Profile").child("Birth").getValue(String.class);
-                    nodeParent.Name4 = node.child("Profile").child("Gender").getValue(String.class);
-                    nodeParent.User = node.getKey();
-                    List<ChildRequest> lsNodeChild = new ArrayList<ChildRequest>();
-                    for (DataSnapshot nodeC: node.child("Request").getChildren() ){
-                        ChildRequest nodeChild = new ChildRequest();
-                        nodeChild.Name1 = nodeC.child("Name").getValue(String.class);
-                        nodeChild.Name2 = "Send: " + nodeC.child("Send").getValue(String.class);
-                        nodeChild.Name3 = "";
-                        nodeChild.Name4 = "";
-                        nodeChild.User = nodeC.getKey();
-                        lsNodeChild.add(nodeChild);
+                for (DataSnapshot node: dataSnapshot.getChildren() ) {
+                        ChildRequest nodeParent = new ChildRequest();
+                        nodeParent.Name1 = node.child("Profile").child("Name").getValue(String.class);
+                        nodeParent.Name2 = node.child("Profile").child("Phone").getValue(String.class);
+                        nodeParent.Name3 = node.child("Profile").child("Birth").getValue(String.class);
+                        nodeParent.Name4 = node.child("Profile").child("Gender").getValue(String.class);
+                        nodeParent.User = node.getKey();
+                        List<ChildRequest> lsNodeChild = new ArrayList<ChildRequest>();
+                        for (DataSnapshot nodeC: node.child("Request").getChildren() ){
+                            ChildRequest nodeChild = new ChildRequest();
+                            nodeChild.Name1 = nodeC.child("Name").getValue(String.class);
+                            nodeChild.Name2 = "Send: " + nodeC.child("Send").getValue(String.class);
+                            nodeChild.Name3 = "";
+                            nodeChild.Name4 = "";
+                            nodeChild.User = nodeC.getKey();
+                            lsNodeChild.add(nodeChild);
+                        }
+                        expandableListDetail.put(nodeParent,lsNodeChild);
+                        expandableListTitle = new ArrayList<ChildRequest>(expandableListDetail.keySet());
                     }
-                    expandableListDetail.put(nodeParent,lsNodeChild);
-
-                    expandableListTitle = new ArrayList<ChildRequest>(expandableListDetail.keySet());
+                    if(expandableListTitle.size()<=0){
+                        btReceive.setVisibility(View.INVISIBLE);
+                    }
                     expandableListAdapter = new CustomExpandableListAdapter(getContext(), expandableListTitle, expandableListDetail);
                     expandableListView.setAdapter(expandableListAdapter);
-                }
-
-
-
-
 
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-//
-
-
-//
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
@@ -106,11 +99,6 @@ public class TabWaiting extends Fragment {
                 lastExpandedPosition = groupPosition;
                 btReceive.setVisibility(View.VISIBLE);
                 nodeIsOpening = groupPosition;
-
-                Log.i(">1<",String.valueOf(nodeIsOpening));
-
-
-
             }
         });
         expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
@@ -118,7 +106,6 @@ public class TabWaiting extends Fragment {
             @Override
             public void onGroupCollapse(int groupPosition) {
                 btReceive.setVisibility(View.INVISIBLE);
-
             }
         });
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -134,7 +121,6 @@ public class TabWaiting extends Fragment {
 //                                childPosition), Toast.LENGTH_SHORT
 //                ).show();
                 Intent it  =new Intent(getActivity(),Review.class);
-
                 it.putExtra("KEY",expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).User  );
                 it.putExtra("USER",expandableListTitle.get(nodeIsOpening).User);
                 startActivity(it);
@@ -146,20 +132,20 @@ public class TabWaiting extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.i(">1<", expandableListTitle.get(nodeIsOpening).User);
-                String[] keys = user.split("@");
-                String key = keys[0];
+                //String[] keys = user.split("@");
+                String key = user;
                 NewRequest_Profile newRequest_Profile = new  NewRequest_Profile(expandableListTitle.get(nodeIsOpening).Name1,expandableListTitle.get(nodeIsOpening).Name3,expandableListTitle.get(nodeIsOpening).Name2,expandableListTitle.get(nodeIsOpening).Name4);
                 myRef.child("Doctor").child(key).child("RequestReceived").child( expandableListTitle.get(nodeIsOpening).User).child("Profile").setValue(newRequest_Profile);
 
                 Date currentTime = Calendar.getInstance().getTime();
                 SimpleDateFormat postFormater = new SimpleDateFormat("dd/MM/yyyy");
                 String newDateStr = postFormater.format(currentTime);
-
                 for (ChildRequest node :expandableListDetail.get(expandableListTitle.get(nodeIsOpening))) {
                     NewRequest_Request newRequest_Request = new NewRequest_Request(node.Name1,node.Name2,newDateStr);
                     myRef.child("Doctor").child(key).child("RequestReceived").child( expandableListTitle.get(nodeIsOpening).User).child("Request").child(node.User).setValue(newRequest_Request);
                 }
                 myRef.child("NewRequest").child(expandableListTitle.get(nodeIsOpening).User).removeValue();
+
 
 
             }

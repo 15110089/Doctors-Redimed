@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -40,8 +41,8 @@ public class Login extends AppCompatActivity {
         btLoginId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] keys = txtEmail.getText().toString().split("@");
-                String key = keys[0];
+                //String[] keys = txtEmail.getText().toString().split("@");
+                String key = txtEmail.getText().toString();
                 myRef.child("Doctor").child(key).child("Profile").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
@@ -61,11 +62,11 @@ public class Login extends AppCompatActivity {
                                     databasel.QueryData("CREATE TABLE IF NOT EXISTS TabelUser(Id INTEGER PRIMARY KEY, Email VARCHAR(200))");
                                     Cursor itemTests = databasel.GetData("SELECT * FROM TabelUser");
                                     while (itemTests.moveToNext()){
-                                        databasel.QueryData("UPDATE TabelUser SET Email ='"+ u.Email +"' WHERE Id = 1");
+                                        databasel.QueryData("UPDATE TabelUser SET Email ='"+ u.Phone +"' WHERE Id = 1");
                                         startActivity(it);
                                         return;
                                     }
-                                    databasel.QueryData("INSERT INTO TabelUser VALUES(1,'"+u.Email+"')");
+                                    databasel.QueryData("INSERT INTO TabelUser VALUES(1,'"+u.Phone+"')");
                                     startActivity(it);
                                     return;
                                 }
@@ -77,6 +78,7 @@ public class Login extends AppCompatActivity {
                         }
                         catch(Exception e)
                         {
+
                             Toast.makeText(Login.this, "Email hoặc Password không đúng", Toast.LENGTH_LONG).show();
                         }
                     }

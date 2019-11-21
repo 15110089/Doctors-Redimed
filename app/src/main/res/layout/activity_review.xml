@@ -74,6 +74,7 @@
                         android:textStyle="bold" />
 
                     <CheckBox
+                        android:enabled="false"
                         android:id="@+id/cbQuestion1"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
@@ -102,6 +103,7 @@
 
                     <CheckBox
                         android:id="@+id/cbQuestion2"
+                        android:enabled="false"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:layout_marginLeft="0dp"
@@ -138,6 +140,7 @@
 
                     <CheckBox
                         android:id="@+id/cbQuestion3"
+                        android:enabled="false"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="0dp"
@@ -165,6 +168,7 @@
 
                     <CheckBox
                         android:id="@+id/cbQuestion4"
+                        android:enabled="false"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="0dp"
@@ -202,6 +206,7 @@
                     <CheckBox
                         android:id="@+id/cbQuestion5"
                         android:layout_width="wrap_content"
+                        android:enabled="false"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="0dp"
                         android:layout_marginTop="0dp"
@@ -236,6 +241,7 @@
 
                     <CheckBox
                         android:id="@+id/cbQuestion6"
+                        android:enabled="false"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="0dp"
@@ -259,6 +265,7 @@
                     <EditText
                         android:id="@+id/txtQuestion1"
                         android:layout_width="match_parent"
+                        android:enabled="false"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="0dp"
@@ -299,6 +306,7 @@
                     <CheckBox
                         android:id="@+id/cbQuestion7"
                         android:layout_width="wrap_content"
+                        android:enabled="false"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="0dp"
                         android:layout_marginTop="0dp"
@@ -335,6 +343,7 @@
                     <CheckBox
                         android:id="@+id/cbQuestion8"
                         android:layout_width="wrap_content"
+                        android:enabled="false"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="0dp"
                         android:layout_marginTop="0dp"
@@ -369,6 +378,7 @@
                     <CheckBox
                         android:id="@+id/cbQuestion9"
                         android:layout_width="wrap_content"
+                        android:enabled="false"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="0dp"
                         android:layout_marginTop="0dp"
@@ -387,6 +397,7 @@
 
                     <EditText
                         android:id="@+id/txtQuestion2"
+                        android:enabled="false"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -428,6 +439,7 @@
                         android:id="@+id/cbQuestion10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="false"
                         android:layout_marginLeft="0dp"
                         android:layout_marginTop="0dp"
                         android:layout_marginRight="10dp"
@@ -445,6 +457,7 @@
 
                     <EditText
                         android:id="@+id/txtQuestion3"
+                        android:enabled="false"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -486,6 +499,7 @@
                         android:id="@+id/cbQuestion11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="false"
                         android:layout_marginLeft="0dp"
                         android:layout_marginTop="0dp"
                         android:layout_marginRight="10dp"
@@ -503,6 +517,7 @@
 
                     <EditText
                         android:id="@+id/txtQuestion4"
+                        android:enabled="false"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"

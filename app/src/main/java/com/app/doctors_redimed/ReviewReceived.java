@@ -63,12 +63,12 @@ public class ReviewReceived extends AppCompatActivity {
     Database databasel;
     String strKeyRequest;
     TextView txtMlFeelBack;
+    Request rq;
     String user;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
     String bKey;
     String bUSER;
-    ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +82,6 @@ public class ReviewReceived extends AppCompatActivity {
 
         }
         //ánh xạ
-        progress = new ProgressDialog(ReviewReceived.this);
         btSend = (Button) findViewById(R.id.btSend);
         btCancel = (Button) findViewById(R.id.btCancel);
         Img1 = (ImageView) findViewById(R.id.idImg1);
@@ -103,6 +102,7 @@ public class ReviewReceived extends AppCompatActivity {
         cbQuestion9 = (CheckBox) findViewById(R.id.cbQuestion9);
         cbQuestion10 = (CheckBox) findViewById(R.id.cbQuestion10);
         cbQuestion11 = (CheckBox) findViewById(R.id.cbQuestion11);
+        txtMlFeelBack = (TextView) findViewById(R.id.txtMlFeelBack);
         databasel = new Database(this,"redimed.sqlite",null,1);
         Cursor itemTest = databasel.GetData("SELECT * FROM TabelUser WHERE Id = 1");
         while (itemTest.moveToNext()){
@@ -110,10 +110,6 @@ public class ReviewReceived extends AppCompatActivity {
         }
 
         //code
-        progress.setTitle("Machine Learning");
-        progress.setMessage("Waiting ...");
-        progress.setCancelable(false);
-        progress.show();
         btSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,15 +199,23 @@ public class ReviewReceived extends AppCompatActivity {
                 myRef.child("Patient").child(bUSER).child("Request").child(bKey).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
-                        Request rq = dataSnapshot.getValue(Request.class);
-                        //machine learn
-                        String path = "https://nghiagood.pythonanywhere.com\\";
-                        String path2 = rq.LinkImage1;
-                        try {
-                            String encodedURL = URLEncoder.encode(path2.replace('/', '\\'), "UTF-8");
-                            new ReviewReceived.ReadJSONObject().execute(path + encodedURL);
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
+                        rq = dataSnapshot.getValue(Request.class);
+                        if(rq.State.equals("5")){
+                            txtMlFeelBack.setText("Feedback of Machine Learning: disease rate less than 50% (normal skin)");
+                        }else{
+                            if(rq.State.equals("6")){
+                                txtMlFeelBack.setText("Feedback of Machine Learning: disease rate greater than 50% (skin cancer)");
+                            }else{
+                                //machine learn
+                                String path = "https://nghiagood.pythonanywhere.com\\";
+                                String path2 = rq.LinkImage1;
+                                try {
+                                    String encodedURL = URLEncoder.encode(path2.replace('/', '\\'), "UTF-8");
+                                    new ReviewReceived.ReadJSONObject().execute(path + encodedURL);
+                                } catch (UnsupportedEncodingException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         }
                         if(rq.Question5.equals("1"))
                             cbQuestion1.setChecked(true);
@@ -281,17 +285,18 @@ public class ReviewReceived extends AppCompatActivity {
             super.onPostExecute(s);
             try {
                 JSONObject object = new JSONObject(s);
-                txtMlFeelBack = (TextView) findViewById(R.id.txtMlFeelBack);
+
                 if(object.getString("Label").equals("1"))
                 {
-                    myRef.child("Patient").child(bUSER).child("Request").child(bKey).child("Feedback").setValue("Feedback of Machine Learning: disease rate > 50% (skin cancer)");
+                   // myRef.child("Patient").child(bUSER).child("Request").child(bKey).child("Feedback").setValue("Feedback of Machine Learning: disease rate > 50% (skin cancer)");
                     txtMlFeelBack.setText("Feedback of Machine Learning: disease rate greater than 50% (skin cancer)");
+                    myRef.child("Patient").child(bUSER).child("Request").child(bKey).child("State").setValue("6");
                 }
                 else{
-                    myRef.child("Patient").child(bUSER).child("Request").child(bKey).child("Feedback").setValue("Feedback of Machine Learning: disease rate < 50% (normal skin)");
+                   // myRef.child("Patient").child(bUSER).child("Request").child(bKey).child("Feedback").setValue("Feedback of Machine Learning: disease rate < 50% (normal skin)");
                     txtMlFeelBack.setText("Feedback of Machine Learning: disease rate less than 50% (normal skin)");
+                    myRef.child("Patient").child(bUSER).child("Request").child(bKey).child("State").setValue("5");
                 }
-                progress.dismiss();
 
             } catch (JSONException e) {
                 e.printStackTrace();

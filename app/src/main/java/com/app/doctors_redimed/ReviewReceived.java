@@ -27,9 +27,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -131,7 +136,36 @@ public class ReviewReceived extends AppCompatActivity {
 //                    }
 //                });
 
-                myRef.child("Patient").child(bUSER).child("Request").child(bKey).child("Feedback").setValue(edrFeedBack.getText().toString());
+
+                myRef.child("Patient").child(bUSER).child("Profile").child("Token").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+                       String tikenUser = dataSnapshot.getValue(String.class);
+
+                        myRef.child("Patient").child(bUSER).child("Request").child(bKey).child("Feedback").setValue(edrFeedBack.getText().toString());
+                        //send notifycation
+                        JSONObject postData = new JSONObject();
+                        JSONObject notificationJS = new JSONObject();
+                        JSONObject dataJS = new JSONObject();
+                        try {
+                            notificationJS.put("title", "Users-Redimed");
+                            notificationJS.put("body", "Lesson "+ bKey +" has been responded by the doctor");
+                            dataJS.put("value1", "UsersRedimed");
+                            postData.put("to", tikenUser);
+                            postData.put("collapse_key", "type_a");
+                            postData.put("notification", notificationJS);
+                            postData.put("data", dataJS);
+                            new SendDeviceDetails().execute("https://fcm.googleapis.com/fcm/send", postData.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+
+
                 String[] keys = user.split("@");
                 String key = keys[0];
 
@@ -170,7 +204,6 @@ public class ReviewReceived extends AppCompatActivity {
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
                                     }
                                 });
-
                             }
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -303,6 +336,53 @@ public class ReviewReceived extends AppCompatActivity {
             }
             //them ket luan may hoc voa firebase
 
+        }
+    }
+
+    private class SendDeviceDetails extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            String data = "";
+            HttpURLConnection httpURLConnection = null;
+            try {
+                Log.i(">1<",params[1]);
+                httpURLConnection = (HttpURLConnection) new URL(params[0]).openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setRequestProperty("Content-Type","application/json");
+                httpURLConnection.setRequestProperty("Authorization","key=AAAAmA8JyIM:APA91bE-VyD1vFhAbXi9y1sCn94wpY6fcpYU3hIjsxpVx91yRsa9T8I0JaoAp7YuaqWV-sRTg2CWdD8rodVkdPSd3YTDkLneK7DPzGkSiLM6Y1c3rtQYJ5PtIfCKSFXL5ICzE6of0OEB");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.connect();
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter( new OutputStreamWriter(outputStream, "UTF-8") );
+                bufferedWriter.write(params[1]);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream, "iso-8859-1") );
+                StringBuilder result = new StringBuilder();
+                String line = "";
+                while( (line = bufferedReader.readLine()) != null ){
+                    result.append(line);
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return result.toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (httpURLConnection != null) {
+                    httpURLConnection.disconnect();
+                }
+            }
+            return data;
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            Log.e("TAG", result); // this is expecting a response code to be sent from your server upon receiving the POST data
         }
     }
 }

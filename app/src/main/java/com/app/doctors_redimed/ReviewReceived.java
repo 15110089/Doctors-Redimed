@@ -48,6 +48,7 @@ public class ReviewReceived extends AppCompatActivity {
     Button btCancel;
     int received=0;
     ImageView Img1;
+    ImageView imgBody;
     EditText txtQuestion1;
     TextView txtRegion;
     EditText edrFeedBack;
@@ -90,6 +91,7 @@ public class ReviewReceived extends AppCompatActivity {
         btSend = (Button) findViewById(R.id.btSend);
         btCancel = (Button) findViewById(R.id.btCancel);
         Img1 = (ImageView) findViewById(R.id.idImg1);
+        imgBody = (ImageView) findViewById(R.id.imgBody);
         txtRegion = (TextView) findViewById(R.id.txtRegion);
         edrFeedBack = (EditText) findViewById(R.id.edrFeedBack);
         txtQuestion1 = (EditText) findViewById(R.id.txtQuestion1);
@@ -278,6 +280,24 @@ public class ReviewReceived extends AppCompatActivity {
                         txtQuestion4.setText(rq.Question4);
                         txtRegion.setText("Region: "+rq.Region);
                         Picasso.get().load(rq.LinkImage1).into(Img1);
+                        if(rq.Region.equals("Right Hand Front")){
+                            imgBody.setImageResource(R.drawable.body_f_1);
+                        }
+                        if(rq.Region.equals("Left Hand Front")){
+                            imgBody.setImageResource(R.drawable.body_f_2);
+                        }
+                        if(rq.Region.equals("Body Front")){
+                            imgBody.setImageResource(R.drawable.body_f_3);
+                        }
+                        if(rq.Region.equals("Right Foot Front")){
+                            imgBody.setImageResource(R.drawable.body_f_4);
+                        }
+                        if(rq.Region.equals("Left Foot Front")){
+                            imgBody.setImageResource(R.drawable.body_f_5);
+                        }
+                        if(rq.Region.equals("Head Front")){
+                            imgBody.setImageResource(R.drawable.body_f_6);
+                        }
 
                     }
                     @Override

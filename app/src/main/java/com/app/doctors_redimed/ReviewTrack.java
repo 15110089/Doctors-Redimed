@@ -148,6 +148,25 @@ public class ReviewTrack extends AppCompatActivity {
                     imgBody.setImageResource(R.drawable.body_f_6);
                 }
 
+                if(rq.Region.equals("Right Hand Back")){
+                    imgBody.setImageResource(R.drawable.body_b_1);
+                }
+                if(rq.Region.equals("Left Hand Back")){
+                    imgBody.setImageResource(R.drawable.body_b_2);
+                }
+                if(rq.Region.equals("Body Back")){
+                    imgBody.setImageResource(R.drawable.body_b_3);
+                }
+                if(rq.Region.equals("Right Foot Back")){
+                    imgBody.setImageResource(R.drawable.body_b_4);
+                }
+                if(rq.Region.equals("Left Foot Back")){
+                    imgBody.setImageResource(R.drawable.body_b_5);
+                }
+                if(rq.Region.equals("Head Back")){
+                    imgBody.setImageResource(R.drawable.body_b_6);
+                }
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

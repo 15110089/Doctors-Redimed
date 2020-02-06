@@ -1,4 +1,4 @@
-package com.app.doctors_redimed;
+package com.app.doctors_redimed_app;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class TabReceived extends Fragment {
+public class TabDone extends Fragment {
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
     List<ChildRequest> expandableListTitle;
@@ -37,7 +37,7 @@ public class TabReceived extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.layout_tab_received, container, false);
+        final View view = inflater.inflate(R.layout.layout_tab_done, container, false);
         expandableListView = (ExpandableListView) view.findViewById(R.id.expandableListView);
         databasel = new Database(getContext(),"redimed.sqlite",null,1);
         Cursor itemTest = databasel.GetData("SELECT * FROM TabelUser WHERE Id = 1");
@@ -47,7 +47,7 @@ public class TabReceived extends Fragment {
         //
         String[] keys = user.split("@");
         String key = keys[0];
-        myRef.child("Doctor").child(key).child("RequestReceived").addValueEventListener(new ValueEventListener() {
+        myRef.child("Doctor").child(key).child("RequestDone").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                 expandableListDetail.clear();
@@ -64,8 +64,8 @@ public class TabReceived extends Fragment {
                         ChildRequest nodeChild = new ChildRequest();
                         nodeChild.Name1 = nodeC.child("Name").getValue(String.class);
                         nodeChild.Name2 = "Send: " + nodeC.child("Send").getValue(String.class);
-                        nodeChild.Name3 = "Receive: " + nodeC.child("Receive").getValue(String.class);;
-                        nodeChild.Name4 = "";
+                        nodeChild.Name3 = "Receive: " + nodeC.child("Receive").getValue(String.class);
+                        nodeChild.Name4 = "Back: "+nodeC.child("Back").getValue(String.class);;
                         nodeChild.User = nodeC.getKey();
                         lsNodeChild.add(nodeChild);
                     }
@@ -106,19 +106,13 @@ public class TabReceived extends Fragment {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-
-                Intent it  =new Intent(getActivity(),ReviewReceived.class);
-
+                Intent it  =new Intent(getActivity(),ReviewTrack.class);
                 it.putExtra("KEY",expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).User );
                 it.putExtra("USER",expandableListTitle.get(nodeIsOpening).User );
                 startActivity(it);
-
-
                 return false;
             }
         });
-
-
         return view;
     }
 }

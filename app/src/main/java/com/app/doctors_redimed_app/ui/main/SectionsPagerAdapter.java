@@ -1,4 +1,4 @@
-package com.app.doctors_redimed.ui.main;
+package com.app.doctors_redimed_app.ui.main;
 
 import android.content.Context;
 
@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.app.doctors_redimed.R;
-import com.app.doctors_redimed.TabDone;
-import com.app.doctors_redimed.TabReceived;
-import com.app.doctors_redimed.TabWaiting;
+import com.app.doctors_redimed_app.R;
+import com.app.doctors_redimed_app.TabDone;
+import com.app.doctors_redimed_app.TabReceived;
+import com.app.doctors_redimed_app.TabWaiting;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to

@@ -4,11 +4,11 @@ apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.app.doctors_redimed"
+        applicationId "com.app.doctors_redimed_app"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 6
-        versionName "1.5"
+        versionCode 1
+        versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

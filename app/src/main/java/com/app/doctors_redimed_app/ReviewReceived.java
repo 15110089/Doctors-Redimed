@@ -1,9 +1,8 @@
-package com.app.doctors_redimed;
+package com.app.doctors_redimed_app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;

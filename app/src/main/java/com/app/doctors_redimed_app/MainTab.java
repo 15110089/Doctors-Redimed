@@ -1,4 +1,4 @@
-package com.app.doctors_redimed;
+package com.app.doctors_redimed_app;
 
 import android.os.Bundle;
 
@@ -7,7 +7,7 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.app.doctors_redimed.ui.main.SectionsPagerAdapter;
+import com.app.doctors_redimed_app.ui.main.SectionsPagerAdapter;
 
 public class MainTab extends AppCompatActivity {
 

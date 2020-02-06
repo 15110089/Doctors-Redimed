@@ -1,18 +1,15 @@
-package com.app.doctors_redimed;
+package com.app.doctors_redimed_app;
 
 import java.util.HashMap;
 import java.util.List;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.core.content.ContextCompat;
 
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;

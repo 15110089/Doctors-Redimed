@@ -1,4 +1,4 @@
-package com.app.doctors_redimed;
+package com.app.doctors_redimed_app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,14 +20,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-public class ReviewTrack extends AppCompatActivity {
+public class Review extends AppCompatActivity {
 
-    Button btBack;
+    Button btCancel;
     ImageView Img1;
     ImageView imgBody;
     EditText txtQuestion1;
     TextView txtRegion;
-    TextView txtFeelBack;
     EditText txtQuestion2;
     EditText txtQuestion3;
     EditText txtQuestion4;
@@ -44,27 +42,28 @@ public class ReviewTrack extends AppCompatActivity {
     CheckBox cbQuestion10;
     CheckBox cbQuestion11;
     Database databasel;
+    String strKeyRequest;
     String user;
-    String bUser;
-    String bKey;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
+    int received=0;
+    String bUser;
+    String bKey;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_review_track);
+        setContentView(R.layout.activity_review);
         Bundle bd = getIntent().getExtras();
         if(bd!=null)
         {
             bKey = bd.getString("KEY");
             bUser = bd.getString("USER");
-            Log.i(">1<",bKey+bUser);
         }
-        btBack = (Button) findViewById(R.id.btBack);
+        //ánh xạ
+        btCancel = (Button) findViewById(R.id.btCancel);
         Img1 = (ImageView) findViewById(R.id.idImg1);
         imgBody = (ImageView) findViewById(R.id.imgBody);
         txtRegion = (TextView) findViewById(R.id.txtRegion);
-        txtFeelBack = (TextView) findViewById(R.id.txtFeelBack);
         txtQuestion1 = (EditText) findViewById(R.id.txtQuestion1);
         txtQuestion2 = (EditText) findViewById(R.id.txtQuestion2);
         txtQuestion3 = (EditText) findViewById(R.id.txtQuestion3);
@@ -87,11 +86,11 @@ public class ReviewTrack extends AppCompatActivity {
         }
         //code
 
-        btBack.setOnClickListener(new View.OnClickListener() {
+        btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                btlesson01.setBackgroundResource(R.drawable.shapeoptionclick);
-                Intent it  =new Intent(ReviewTrack.this,MainTab.class);
+                Intent it  =new Intent(Review.this,MainTab.class);
                 startActivity(it);
             }
         });
@@ -99,6 +98,7 @@ public class ReviewTrack extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                 Request rq = dataSnapshot.getValue(Request.class);
+
                 if(rq.Question5.equals("1"))
                     cbQuestion1.setChecked(true);
                 if(rq.Question6.equals("1"))
@@ -126,7 +126,6 @@ public class ReviewTrack extends AppCompatActivity {
                 txtQuestion3.setText(rq.Question3);
                 txtQuestion4.setText(rq.Question4);
                 txtRegion.setText("Region: "+rq.Region);
-                txtFeelBack.setText("Feedback: "+rq.Feedback);
                 Picasso.get().load(rq.LinkImage1).into(Img1);
 
                 if(rq.Region.equals("Right Hand Front")){
@@ -172,5 +171,8 @@ public class ReviewTrack extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+
+
+
     }
 }

@@ -1,4 +1,4 @@
-package com.app.doctors_redimed;
+package com.app.doctors_redimed_app;
 
 import org.junit.Test;
 

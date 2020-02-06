@@ -1,4 +1,4 @@
-package com.app.doctors_redimed;
+package com.app.doctors_redimed_app;
 
 import android.content.Context;
 import android.database.Cursor;

@@ -1,4 +1,4 @@
-package com.app.doctors_redimed.ui.main;
+package com.app.doctors_redimed_app.ui.main;
 
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;

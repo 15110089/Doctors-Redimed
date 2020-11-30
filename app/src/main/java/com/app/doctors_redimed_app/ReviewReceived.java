@@ -235,10 +235,10 @@ public class ReviewReceived extends AppCompatActivity {
                     public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                         rq = dataSnapshot.getValue(Request.class);
                         if(rq.State.equals("5")){
-                            txtMlFeelBack.setText("Feedback of Machine Learning: disease rate less than 50% (normal skin)");
+                            txtMlFeelBack.setText("Feedback of Machine Learning: melanoma (skin cancer)");
                         }else{
                             if(rq.State.equals("6")){
-                                txtMlFeelBack.setText("Feedback of Machine Learning: disease rate greater than 50% (skin cancer)");
+                                txtMlFeelBack.setText("Feedback of Machine Learning: benign keratosis-like lesions (skin cancer)");
                             }else{
                                 //machine learn
                                 String path = "https://nghiagood.pythonanywhere.com\\";
